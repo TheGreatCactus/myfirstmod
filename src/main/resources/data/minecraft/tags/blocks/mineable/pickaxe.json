@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "myfirstmod:bronze_block",
+    "myfirstmod:tin_block",
+    "myfirstmod:tin_ore",
+    "myfirstmod:bronze_lamp"
+  ]
+}

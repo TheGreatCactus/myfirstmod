@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=true": {"model": "myfirstmod:block/bronze_lamp_on"},
+    "lit=false": {"model": "myfirstmod:block/bronze_lamp"}
+  }
+}

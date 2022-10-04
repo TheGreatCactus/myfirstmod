@@ -1,0 +1,23 @@
+{
+  "item.myfirstmod.raw_tin": "Raw Tin",
+  "item.myfirstmod.tin_ingot": "Tin Ingot",
+  "item.myfirstmod.bronze_ingot": "Bronze Ingot",
+  "item.myfirstmod.dice": "Dice",
+  "item.myfirstmod.blueberry": "Blueberry",
+  "item.myfirstmod.blueberry_seeds": "Blueberry Seeds",
+  "item.myfirstmod.bronze_nugget": "Bronze Nugget",
+  "item.myfirstmod.tin_nugget": "Tin Nugget",
+
+  "block.myfirstmod.blueberry_crop": "Blueberry Crop",
+  "block.myfirstmod.bronze_block": "Block of Bronze",
+  "block.myfirstmod.bronze_lamp": "Bronze Lamp",
+  "block.myfirstmod.tin_block": "Block of Tin",
+  "block.myfirstmod.tin_ore": "Tin Ore",
+  "block.myfirstmod.death_block": "Death Block",
+
+  "entity.minecraft.villager.myfirstmod.dealer": "Dealer",
+
+  "item.myfirstmod.modtab": "Mod Tab",
+  "key.category.myfirstmod.mymod": "My First Mod",
+  "key.myfirstmod.poop": "Poop"
+}

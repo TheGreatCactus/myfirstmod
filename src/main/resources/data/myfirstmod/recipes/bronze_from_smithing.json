@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smithing",
+    "base": {
+        "item": "myfirstmod:tin_nugget"
+    },
+    "addition": {
+        "item": "minecraft:copper_ingot"
+    },
+    "result": {
+        "item": "myfirstmod:bronze_ingot"
+    }
+}
