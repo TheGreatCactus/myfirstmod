@@ -2,6 +2,7 @@ package me.mikołaj.myfirstmod.event
 
 import me.mikołaj.myfirstmod.MyFirstMod
 import me.mikołaj.myfirstmod.networking.ModMessages
+import me.mikołaj.myfirstmod.networking.packet.ExampleC2SPacket
 import me.mikołaj.myfirstmod.util.KeyBinding
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
@@ -17,9 +18,8 @@ object ClientEvents {
         @SubscribeEvent
         fun onKeyInput(event: InputEvent.Key) {
             if(KeyBinding.POOPING_KEY.consumeClick()) {
-                if (ModMessages.INSTANCE == null) {
-                    Minecraft.getInstance().player?.sendSystemMessage(Component.literal("null"))
-                }
+                ModMessages.sendToServer(ExampleC2SPacket())
+                Minecraft.getInstance().player!!.sendSystemMessage(Component.literal("You' ve just pooped"))
             }
         }
     }

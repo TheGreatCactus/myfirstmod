@@ -11,26 +11,26 @@ import net.minecraftforge.network.simple.SimpleChannel
 import kotlin.reflect.full.createInstance
 
 object ModMessages {
-    var INSTANCE: SimpleChannel =
-       NetworkRegistry.ChannelBuilder.named(ResourceLocation(MyFirstMod.MODID, "messages"))
-          .networkProtocolVersion { "1.0" }
-          .clientAcceptedVersions { true }
-          .serverAcceptedVersions { true }
-          .simpleChannel()
+   var INSTANCE: SimpleChannel =
+      NetworkRegistry.ChannelBuilder.named(ResourceLocation(MyFirstMod.MODID, "messages"))
+         .networkProtocolVersion { "1.0" }
+         .clientAcceptedVersions { true }
+         .serverAcceptedVersions { true }
+         .simpleChannel()
+
 
    private var packetId = 0
    private fun id(): Int {
       return packetId++
    }
 
-   fun register() {
+   fun register(){
       INSTANCE.messageBuilder(ExampleC2SPacket::class.java, id(), NetworkDirection.PLAY_TO_SERVER)
          .decoder { ExampleC2SPacket::class.createInstance() }
          .encoder(ExampleC2SPacket::toBytes)
          .consumerMainThread(ExampleC2SPacket::handle)
          .add()
    }
-
 
    fun <MSG> sendToServer(message: MSG) {
       INSTANCE.sendToServer(message)

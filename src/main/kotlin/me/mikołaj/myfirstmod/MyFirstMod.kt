@@ -34,6 +34,7 @@ object MyFirstMod {
         LOGGER.log(Level.INFO, "Hello world!")
 
         // Register the KDeferredRegister to the mod-specific event bus
+        ModMessages.register()
         ModItems.ITEMS.register(MOD_BUS)
         ModBlocks.BLOCKS.register(MOD_BUS)
         ModPaintings.PAINTING_VARIANTS.register(MOD_BUS)
@@ -55,10 +56,8 @@ object MyFirstMod {
     }
 
    private fun commonSetup(event: FMLCommonSetupEvent) {
-        event.enqueueWork {
-                ModVillagers.registerPOIs()
-
-            ModMessages.register()
+        event.enqueueWork{
+            ModVillagers.registerPOIs()
         }
     }
 
