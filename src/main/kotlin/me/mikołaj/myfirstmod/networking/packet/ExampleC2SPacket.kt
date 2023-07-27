@@ -2,10 +2,12 @@ package me.mikołaj.myfirstmod.networking.packet
 
 import me.mikołaj.myfirstmod.needToShit.PlayerNeedToShit
 import me.mikołaj.myfirstmod.needToShit.PlayerNeedToShitProvider
+import me.mikołaj.myfirstmod.networking.ModMessages
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobSpawnType
 import net.minecraftforge.network.NetworkEvent
@@ -30,7 +32,7 @@ class ExampleC2SPacket {
 
             player.getCapability(PlayerNeedToShitProvider.PLAYER_NEED_TO_SHIT)
             .ifPresent{ need_to_shit: PlayerNeedToShit ->
-                if (need_to_shit.getNeedToShit()!! > 2) {
+                if (need_to_shit.getNeedToShit() > 2) {
                     need_to_shit.resetNeedToShit()
                     player.sendSystemMessage(
                         Component
@@ -41,6 +43,8 @@ class ExampleC2SPacket {
                     EntityType.PHANTOM.spawn(
                         level, null, null, player.blockPosition(),
                         MobSpawnType.COMMAND, true, false)
+
+                    ModMessages.sendToPlayer(NTSDataSyncS2CPacket(need_to_shit.getNeedToShit()), player)
                 }
                 else {
                     player.sendSystemMessage(Component
@@ -49,6 +53,7 @@ class ExampleC2SPacket {
                     player.sendSystemMessage(Component
                         .literal("Your NTS level: " + need_to_shit.getNeedToShit())
                         .withStyle(ChatFormatting.DARK_AQUA))
+                    ModMessages.sendToPlayer(NTSDataSyncS2CPacket(need_to_shit.getNeedToShit()), player)
                 }
             }
         }

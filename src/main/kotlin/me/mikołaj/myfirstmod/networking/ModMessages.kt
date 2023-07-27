@@ -2,6 +2,7 @@ package me.mikołaj.myfirstmod.networking
 
 import me.mikołaj.myfirstmod.MyFirstMod
 import me.mikołaj.myfirstmod.networking.packet.ExampleC2SPacket
+import me.mikołaj.myfirstmod.networking.packet.NTSDataSyncS2CPacket
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraftforge.network.NetworkDirection
@@ -29,6 +30,12 @@ object ModMessages {
          .decoder { ExampleC2SPacket::class.createInstance() }
          .encoder(ExampleC2SPacket::toBytes)
          .consumerMainThread(ExampleC2SPacket::handle)
+         .add()
+
+      INSTANCE.messageBuilder(NTSDataSyncS2CPacket::class.java, id(), NetworkDirection.PLAY_TO_CLIENT)
+         .decoder { NTSDataSyncS2CPacket::class.createInstance() }
+         .encoder(NTSDataSyncS2CPacket::toBytes)
+         .consumerMainThread(NTSDataSyncS2CPacket::handle)
          .add()
    }
 
