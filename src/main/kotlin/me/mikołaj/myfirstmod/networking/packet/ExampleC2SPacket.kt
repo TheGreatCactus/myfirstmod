@@ -7,11 +7,9 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobSpawnType
 import net.minecraftforge.network.NetworkEvent
-import java.util.function.BiConsumer
 import java.util.function.Supplier
 
 class ExampleC2SPacket {
@@ -33,18 +31,18 @@ class ExampleC2SPacket {
             player.getCapability(PlayerNeedToShitProvider.PLAYER_NEED_TO_SHIT)
             .ifPresent{ need_to_shit: PlayerNeedToShit ->
                 if (need_to_shit.getNeedToShit() > 2) {
-                    need_to_shit.resetNeedToShit()
                     player.sendSystemMessage(
                         Component
                         .literal("Your NTS level: " + need_to_shit.getNeedToShit())
                         .withStyle(ChatFormatting.DARK_AQUA))
-
 
                     EntityType.PHANTOM.spawn(
                         level, null, null, player.blockPosition(),
                         MobSpawnType.COMMAND, true, false)
 
                     ModMessages.sendToPlayer(NTSDataSyncS2CPacket(need_to_shit.getNeedToShit()), player)
+
+                    need_to_shit.resetNeedToShit()
                 }
                 else {
                     player.sendSystemMessage(Component

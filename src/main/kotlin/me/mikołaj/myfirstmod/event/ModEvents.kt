@@ -4,11 +4,9 @@ import me.mikołaj.myfirstmod.MyFirstMod
 import me.mikołaj.myfirstmod.item.ModItems
 import me.mikołaj.myfirstmod.needToShit.PlayerNeedToShit
 import me.mikołaj.myfirstmod.needToShit.PlayerNeedToShitProvider
-import me.mikołaj.myfirstmod.networking.ModMessages
 import me.mikołaj.myfirstmod.networking.ModMessages.sendToPlayer
 import me.mikołaj.myfirstmod.networking.packet.NTSDataSyncS2CPacket
 import me.mikołaj.myfirstmod.villager.ModVillagers
-import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
@@ -17,7 +15,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.trading.MerchantOffer
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
-import net.minecraftforge.common.util.NonNullConsumer
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
 import net.minecraftforge.event.entity.EntityJoinLevelEvent
@@ -77,7 +74,7 @@ object ModEvents {
    fun onPlayerTick(event: PlayerTickEvent) {
       if (event.side == LogicalSide.SERVER) {
          event.player.getCapability(PlayerNeedToShitProvider.PLAYER_NEED_TO_SHIT)
-            .ifPresent { need_to_shit: PlayerNeedToShit ->
+            .ifPresent { need_to_shit ->
                if (need_to_shit.getNeedToShit()!! < 10 && event.player.random
                      .nextFloat() < 0.005f
                ) { // Once Every 10 Seconds on Avg
@@ -85,6 +82,7 @@ object ModEvents {
                   sendToPlayer(NTSDataSyncS2CPacket(need_to_shit.getNeedToShit()),
                      event.player as ServerPlayer
                   )
+                     println(need_to_shit.getNeedToShit())
                }
             }
       }
@@ -95,7 +93,7 @@ object ModEvents {
       if (!event.level.isClientSide()) {
          if (event.entity is ServerPlayer) {
             event.entity.getCapability(PlayerNeedToShitProvider.PLAYER_NEED_TO_SHIT).
-            ifPresent { nts -> sendToPlayer(NTSDataSyncS2CPacket(nts.getNeedToShit()),
+            ifPresent { need_to_shit : PlayerNeedToShit -> sendToPlayer(NTSDataSyncS2CPacket(need_to_shit.getNeedToShit()),
                event.entity as ServerPlayer);
             }
          }

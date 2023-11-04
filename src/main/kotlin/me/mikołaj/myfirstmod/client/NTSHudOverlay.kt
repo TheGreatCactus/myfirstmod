@@ -12,7 +12,7 @@ class NTSHudOverlay {
     private val EMPTY_NTS = ResourceLocation(MyFirstMod.MODID, "textures/needtoshit/empty_nts.png")
 
     companion object {
-        var PlayerNTS = 0
+        var PlayerNTS = 5
     }
 
     val MOD_NTS = IGuiOverlay { gui, poseStack, partialTick, width, height ->
@@ -28,10 +28,10 @@ class NTSHudOverlay {
 
         RenderSystem.setShaderTexture(0, FILLED_NTS)
         for (i in 1..10) {
-           if (PlayerNTS > i) {
-                 GuiComponent.blit(poseStack, x - 94 + (i * 9), y - 54, 0f, 0f, 12, 12, 12, 12)
+           if (PlayerNTS >= i) {
+               GuiComponent.blit(poseStack, x - 94 + (i * 9), y - 54, 0f, 0f, 12, 12, 12, 12)
            } else {
-                 break
+               break
            }
         }
     }
